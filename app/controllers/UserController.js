@@ -1,5 +1,6 @@
 const Userc = require('../models/User');
 const CONFIG = require('../config/config');
+const jwt = require('jsonwebtoken');
 
 function index(req,res){
     // busco todos los users y si no da error me devuelve arreglo users
@@ -20,12 +21,13 @@ function create(req,res){
         payload = { //se debe meter fecha de entrega
             email: user.email,
             name: user.name,
-            _id: user._id
+            _id: user._id,
+            role: user.role
         }
         const token = jwt.sign(payload, CONFIG.SECRET_TOKEN); // aca se deberia de poner la duración del token y demas
 
         return res.status(201).send({user, token});
-    }).catch(error => res.status(500).send({error}));
+    }).catch(error => res.status(500).send({message: "El usuario ya existe", error}));
 }
 
 

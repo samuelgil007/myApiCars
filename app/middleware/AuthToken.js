@@ -10,20 +10,22 @@ module.exports = function(req,res,next){
             
             //se valida que este melo el token
             jwt.verify(token,CONFIG.SECRET_TOKEN,function(error,decoded){
-                if(error) return res.status(403).send({message: 'no tiene permisos',error});
+                if(error) return res.status(403).send({message: 'Fallo al decodificar token',error});
                 //el decode es lo que meti en el payloda
                 //ahora filtro por roles,
                 if(req.method != "GET"){
                     console.log(decoded.role);
                     if(decoded.role == "admin") next();
-                    else res.status(403).send({message:"no tiene permisos suficientes >:V"});                //403 es peticion valida , pero no se puede responder
+                    else res.status(403).send({message:"No tiene el rol necesario para hacer esa acción"});                //403 es peticion valida , pero no se puede responder
                 }else{
                     next();
                 }
                 
             });
         }
-        else res.status(403).send({message:"no tiene permisos suficientes ...."});                //403 es peticion valida , pero no se puede responder
+        else{
+            res.status(403).send({message:"No tiene permisos (headers)"});                //403 es peticion valida , pero no se puede responder
+        } 
     }else next(); // aqui se permite acceder a cualquiera al login
 
 

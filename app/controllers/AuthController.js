@@ -19,7 +19,8 @@ function login(req, res) {
                     payload = { //se debe meter fecha de entrega
                         email: user.email,
                         name: user.name,
-                        _id: user._id
+                        _id: user._id,
+                        role: user.role
                     }
                     //acceso con web token npm i jsonwebtoken
                     jwt.sign(payload, CONFIG.SECRET_TOKEN, function (error, token) {
