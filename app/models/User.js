@@ -6,7 +6,7 @@ const UserSchema = new mongoose.Schema({
         type: String,
         required: true
     },
-    username:{
+    id_user:{
         type:String,
         required: true,
         unique: true
@@ -32,8 +32,14 @@ const UserSchema = new mongoose.Schema({
         type:String,
         default:"regular",
         enum:[
-            "regular",
-            "admin"
+            "admin",
+            "Gerente general",
+            "Asistente de gerencia",
+            "Gerente financiero",
+            "Asistente financiero",
+            "Asistente recursos humanos",
+            "Supervisor de taller",
+            "Tecnico de taller"
         ]
         }
     

@@ -1,4 +1,5 @@
 const Userc = require('../models/User');
+const CONFIG = require('../config/config');
 
 function index(req,res){
     // busco todos los users y si no da error me devuelve arreglo users
@@ -13,8 +14,18 @@ function index(req,res){
 function create(req,res){
     //se inicializa una variable con los datos de mi body
     let usuario = new Userc(req.body);
+    console.log(req.body);
     //guardo con el metodo save el nuevo usuario
-    usuario.save().then(user => res.status(201).send({user})).catch(error => res.status(500).send({message: "User alredy in db",error}));
+    usuario.save().then(user => { 
+        payload = { //se debe meter fecha de entrega
+            email: user.email,
+            name: user.name,
+            _id: user._id
+        }
+        const token = jwt.sign(payload, CONFIG.SECRET_TOKEN); // aca se deberia de poner la duración del token y demas
+
+        return res.status(201).send({user, token});
+    }).catch(error => res.status(500).send({error}));
 }
 
 

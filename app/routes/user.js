@@ -10,8 +10,4 @@ routerU.get('/', UserCtrl.index)  // api.com/user/  #Index: listar todos los use
       .put('/:key/:value', UserCtrl.find,UserCtrl.update)    // api.com/user/name/SamsungGalaxy #update : actualizar un user en especifico
       .delete('/:key/:value',UserCtrl.find, UserCtrl.remove) // api.com/user/name/SamsungGalaxy
 
-
-
-
-
 module.exports = routerU;

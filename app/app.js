@@ -8,7 +8,7 @@ const AuthToken = require('./middleware/AuthToken')
 const app = express();
 
 
-app.use(AuthToken); // antes d ecualquier ruta se ejecuta este 
+//app.use(AuthToken); // antes d ecualquier ruta se ejecuta este 
 
 
 //para poder manejar jsons, peticiones y respuestas

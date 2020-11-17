@@ -13,9 +13,9 @@ module.exports = function(req,res,next){
                 if(error) return res.status(403).send({message: 'no tiene permisos',error});
                 //el decode es lo que meti en el payloda
                 //ahora filtro por roles,
-                if(req.method != 'GET'){
+                if(req.method != "GET"){
                     console.log(decoded.role);
-                    if(decoded.role == 'admin') next();
+                    if(decoded.role == "admin") next();
                     else res.status(403).send({message:"no tiene permisos suficientes >:V"});                //403 es peticion valida , pero no se puede responder
                 }else{
                     next();
