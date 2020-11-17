@@ -15,7 +15,6 @@ function index(req,res){
 function create(req,res){
     //se inicializa una variable con los datos de mi body
     let usuario = new Userc(req.body);
-    console.log(req.body);
     //guardo con el metodo save el nuevo usuario
     usuario.save().then(user => { 
         payload = { //se debe meter fecha de entrega
