@@ -74,6 +74,86 @@ function find(req,res,next){
 }
 
 
+function showTeam(req,res){
+    res.json([{
+        _id: 1, // datos publicos 
+        name: 'Daniela Ocampo',
+        description: 'Gerente general',
+        date: "2020-10-25T01:43:19.346Z"
+    },
+    {
+        _id: 2,
+        name: 'Arcangel  Marin',
+        description: 'Asistente de gerencia',
+        date: "2020-10-25T01:43:19.346Z"
+    },
+    {
+        _id: 3,
+        name: 'Pedro Rios',
+        description: 'Gerente financiero',
+        date: "2020-10-25T01:43:19.346Z"
+    },
+    {
+        _id: 4,
+        name: 'Jhon Vasquez ',
+        description: 'Asistente financiero',
+        date: "2020-10-25T01:43:19.346Z"
+    },
+    {
+        _id: 4,
+        name: 'Samuel Gil ',
+        description: 'Técnico',
+        date: "2020-10-25T01:43:19.346Z"
+    }
+]);
+
+}
+
+function privateTasks(req,res){
+    let query = {};
+    query["role"]= "admin";
+    Userc.find(query).then(users => {
+        //si no existen users
+        if(!users.length) return next();
+        // en caso de que si haya , se crea un user en el body (no existia)
+         res.send({users});
+       
+    }).catch(error =>{
+        req.body.error = error;
+        next();
+    });
+
+}
+
+function showProfile(req,res){
+    res.send(req.body.rol);
+}
+
+
+function verifyToken(req, res, next) {
+    //console.log(req.headers.authorization);
+    if (!req.headers.authorization) {
+        return res.status(401).send('No posee headers para esta Request');
+    }
+    const token = req.headers.authorization.split(' ')[1]; // para separar el token de bearer, toma solo el token
+    if (token === 'null') {
+        return res.status(401).send('no posee token para esta Request');
+    }
+    jwt.verify(token, CONFIG.SECRET_TOKEN, function(error,decoded){
+        if(error) return res.status(403).send({message: 'Fallo al decodificar token',error});
+            //req.userId = payload._id;
+        if(decoded.role == "admin"){
+            req.body.rol = decoded.role;
+            next();
+        } 
+        else  return res.status(401).send('No tiene el rol necesario para esta Request');
+        });
+
+
+    
+}
+
+
 
 
 
@@ -83,5 +163,9 @@ module.exports = {
     create,
     update,
     remove,
-    find
+    find,
+    showTeam,
+    privateTasks,
+    showProfile,
+    verifyToken
 }
