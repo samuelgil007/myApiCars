@@ -8,16 +8,16 @@ const AuthToken = require('./middleware/AuthToken')
 const app = express();
 
 
-app.use(AuthToken); // antes d ecualquier ruta se ejecuta este 
+//app.use(AuthToken); // antes d ecualquier ruta se ejecuta este 
 
 
 //para poder manejar jsons, peticiones y respuestas
 app.use(bodyParser.json());
 //se dice que no utilizamos peticiones directamente en formularios, sino que se procesa en formato json
-app.use(bodyParser.urlencoded({extended:false}));
+app.use(bodyParser.urlencoded({ extended: false }));
 
 
- 
+
 
 /// creo el path primero /product y ya lo que sigue de la , es el product que puede variar
 app.use('/product', Product);
@@ -25,9 +25,7 @@ app.use('/product', Product);
 app.use('/user', User);
 // crea el path /auth
 
-app.use('/auth', Auth); 
+app.use('/auth', Auth);
 
 
-module.exports= app;
-
- 
+module.exports = app;
