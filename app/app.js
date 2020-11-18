@@ -6,7 +6,8 @@ const Auth = require('./routes/auth');
 const AuthToken = require('./middleware/AuthToken')
 
 const app = express();
-
+const cors = require('cors');
+app.use(cors());
 
 //app.use(AuthToken); // antes d ecualquier ruta se ejecuta este 
 
