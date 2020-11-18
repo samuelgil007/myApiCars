@@ -1,4 +1,1 @@
-node_modules
-README.md
-variable.env
-.DS_Store
+/node_modules
