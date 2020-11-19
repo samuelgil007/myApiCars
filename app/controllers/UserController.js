@@ -114,12 +114,13 @@ function privateTasks(req, res) {
     query["role"] = "admin";
     Userc.find(query).then(users => {
         //si no existen users
-        if (!users.length) return res.send({ message: "no hay ningun usuario con ese rol" });
+        if (!users.length) return next();
         // en caso de que si haya , se crea un user en el body (no existia)
         res.send({ users });
 
     }).catch(error => {
-        res.send({ error });
+        req.body.error = error;
+        next();
     });
 
 }
@@ -166,4 +167,4 @@ module.exports = {
     privateTasks,
     showProfile,
     verifyToken
-}
+};

@@ -9,7 +9,7 @@ const app = express();
 const cors = require('cors');
 app.use(cors());
 
-app.use(AuthToken); // antes d ecualquier ruta se ejecuta este 
+//app.use(AuthToken); // antes d ecualquier ruta se ejecuta este 
 
 
 //para poder manejar jsons, peticiones y respuestas
